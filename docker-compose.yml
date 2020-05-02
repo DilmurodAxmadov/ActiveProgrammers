@@ -1,38 +1,64 @@
-version: '3.2'
+version: '3.7'
 
 services:
 
-  frontend:
-    build: frontend
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: crrt-nginx
+    restart: unless-stopped
+    working_dir: /app
     ports:
-      - 20080:80
+      - 20080:80 # frontend
+      - 20081:81 # backend
     volumes:
       # Re-use local composer cache via host-volume
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+      # Mount config for development
+      - ./docker/nginx:/etc/nginx/conf.d:cached
+    links:
+      - php-fpm
+    depends_on:
+      - php-fpm
+      - db
+    networks:
+      - crrt
 
-  backend:
-    build: backend
+  php-fpm:
+    build: docker/php-fpm
+    restart: unless-stopped
+    container_name: crrt-php
+    working_dir: /app
     ports:
-      - 21080:80
+      - 9000:9000
     volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
-      - ./:/app
+      - ./:/app:cached
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - crrt
 
-  mysql:
-    image: mysql:5.7
+  db:
+    image: postgres:12.2-alpine
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker/storage/psql:/var/lib/postgresql/data:cached
     environment:
-      - MYSQL_ROOT_PASSWORD=verysecret
-      - MYSQL_DATABASE=yii2advanced
-      - MYSQL_USER=yii2advanced
-      - MYSQL_PASSWORD=secret
+      POSTGRES_USER: crrt
+      POSTGRES_PASSWORD: crrt
+      POSTGRES_DB: crrt
+    networks:
+      - crrt
 
-  #pgsql:
-  #  image: postgres:9.5
-  #  environment:
-  #    - POSTGRES_DB=yii2advanced
-  #    - POSTGRES_USER=yii2advanced
-  #    - POSTGRES_PASSWORD=secret
+networks:
+  crrt:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.231.0/28
