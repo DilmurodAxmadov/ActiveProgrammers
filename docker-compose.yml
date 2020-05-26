@@ -45,7 +45,7 @@ services:
     image: postgres:12.2-alpine
     restart: unless-stopped
     ports:
-      - 5432:5432
+      - 40002:5432
     volumes:
       - ./docker/storage/psql:/var/lib/postgresql/data:cached
     environment:
