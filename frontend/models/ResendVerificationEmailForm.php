@@ -15,10 +15,7 @@ class ResendVerificationEmailForm extends Model
     public $email;
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+public function rules()
     {
         return [
             ['email', 'trim'],

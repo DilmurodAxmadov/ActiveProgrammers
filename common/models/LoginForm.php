@@ -16,10 +16,7 @@ class LoginForm extends Model
     private $_user;
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+public function rules()
     {
         return [
             // username and password are both required

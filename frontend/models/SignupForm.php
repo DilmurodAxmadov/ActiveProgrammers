@@ -15,10 +15,7 @@ class SignupForm extends Model
     public $password;
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+public function rules()
     {
         return [
             ['username', 'trim'],

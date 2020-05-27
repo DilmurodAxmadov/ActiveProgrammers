@@ -37,10 +37,7 @@ class ResetPasswordForm extends Model
         parent::__construct($config);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+public function rules()
     {
         return [
             ['password', 'required'],

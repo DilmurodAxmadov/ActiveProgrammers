@@ -3,10 +3,10 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'pgsql:host=db;dbname=crrt',
-            'username' => 'crrt',
-            'password' => 'crrt',
-            'charset' => 'utf8',
+            'dsn' => 'mysql:host=db;dbname=crrt',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8mb4',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

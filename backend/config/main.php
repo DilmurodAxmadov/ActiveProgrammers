@@ -1,4 +1,9 @@
 <?php
+
+use common\models\User;
+use mihaildev\elfinder\PathController;
+use yii\filters\AccessControl;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -17,7 +22,7 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => User::class,
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
@@ -37,14 +42,34 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+    ],
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => PathController::class,
+            'access' => ['@'],
+            'root' => [
+                'baseUrl' => $params['storageHostInfo'],
+                'basePath' => '@storage',
+                'path' => 'elfinder-files',
+                'name' => 'Files',
+            ],
+        ],
+    ],
+    'as access' => [
+        'class' => AccessControl::class,
+        'except' => ['site/login', 'site/error', 'site/logout'],
+        'rules' => [
+            [
+                'allow' => true,
+                'roles' => ['@']
+            ],
+        ],
     ],
     'params' => $params,
 ];

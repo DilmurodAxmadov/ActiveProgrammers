@@ -13,13 +13,29 @@
         "source": "https://github.com/yiisoft/yii2"
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "php": ">=5.6.0",
-        "yiisoft/yii2": "~2.0.14",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+        "php": "^7.1",
+        "yiisoft/yii2": "^2.0",
+        "yiisoft/yii2-bootstrap": "^2.0.10",
+        "yiisoft/yii2-swiftmailer": "^2.1.2",
+        "dmstr/yii2-adminlte-asset": "^2.6",
+        "abdualiym/yii2-cms": "^2.0",
+        "fishvision/yii2-migrate": "^1.0",
+        "mihaildev/yii2-elfinder": "1.2.2",
+        "mihaildev/yii2-ckeditor": "1.0.1",
+        "yii-dream-team/yii2-upload-behavior": "^1.1",
+        "masterexploder/phpthumb": "dev-master",
+        "himiklab/yii2-recaptcha-widget" : "*",
+        "yiisoft/yii2-bootstrap4": "~2.0.6",
+        "codemix/yii2-localeurls": "^1.7.1",
+        "abdualiym/yii2-slider": "^2.0",
+        "abdualiym/yii2-language": "^1.0",
+        "abdualiym/yii2-block": "^1.1"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-master"
+        ,
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.1.0",
         "yiisoft/yii2-faker": "~2.0.0",

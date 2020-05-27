@@ -10,6 +10,7 @@ services:
     ports:
       - 20080:80 # frontend
       - 20081:81 # backend
+      - 20082:82 # storage
     volumes:
       # Re-use local composer cache via host-volume
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
@@ -42,18 +43,27 @@ services:
       - crrt
 
   db:
-    image: postgres:12.2-alpine
+    #    image: postgres:12.2-alpine
+    image: mysql:5.7
     restart: unless-stopped
     ports:
-      - 40002:5432
+      #      - 5432:5432
+      - 3306:3306
     volumes:
-      - ./docker/storage/psql:/var/lib/postgresql/data:cached
+      #      - ./docker/storage/psql:/var/lib/postgresql/data:cached
+      - ./docker/storage/mysql:/var/lib/mysql:cached
     environment:
-      POSTGRES_USER: crrt
-      POSTGRES_PASSWORD: crrt
-      POSTGRES_DB: crrt
+      #      POSTGRES_USER: crrt
+      #      POSTGRES_PASSWORD: crrt
+      #      POSTGRES_DB: crrt
+      MYSQL_DATABASE: crrt
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
     networks:
       - crrt
+
 
 networks:
   crrt:

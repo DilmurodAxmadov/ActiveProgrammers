@@ -8,10 +8,7 @@ use yii\db\Migration;
  */
 class m200502_133940_add_user extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function safeUp()
+public function safeUp()
     {
         $this->insert('user', [
             'username' => 'adm!n',
@@ -24,10 +21,7 @@ class m200502_133940_add_user extends Migration
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function safeDown()
+public function safeDown()
     {
         echo "m200502_133940_add_user cannot be reverted.\n";
 

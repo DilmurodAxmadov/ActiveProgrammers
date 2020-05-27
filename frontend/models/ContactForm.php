@@ -17,10 +17,7 @@ class ContactForm extends Model
     public $verifyCode;
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+public function rules()
     {
         return [
             // name, email, subject and body are required
@@ -32,10 +29,7 @@ class ContactForm extends Model
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
+public function attributeLabels()
     {
         return [
             'verifyCode' => 'Verification Code',
