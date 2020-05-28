@@ -40,6 +40,14 @@ return [
         'cache' => [
             'class' => FileCache::class,
         ],
+        'assetManager' => [
+//        'bundles' => [
+//            JqueryAsset::class => [
+//                'jsOptions' => ['position' => View::POS_HEAD]
+//            ]
+//        ],
+            'appendTimestamp' => true,
+        ],
         'reCaptcha' => [
             'class' => ReCaptchaConfig::class,
             'siteKeyV2' => '',
@@ -66,8 +74,8 @@ return [
             'storageRoot' => '@storageRoot',
             'storageHost' => '@storageHostInfo',
             'thumbs' => [ // 'sm' and 'md' keys are reserved
-                'admin' => ['width' => 128, 'height' => 128],
-                'thumb' => ['width' => 320, 'height' => 320],
+                'admin' => ['width' => 128, 'height' => 96],
+                'thumb' => ['width' => 320, 'height' => 240],
             ],
             'languages' => $languages,
             'menuActions' => [ // for add to menu controller actions
@@ -81,8 +89,8 @@ return [
             'storageRoot' => '@storageRoot',
             'storageHost' => '@storageHostInfo',
             'thumbs' => [ // 'sm' and 'md' keys are reserved
-                'admin' => ['width' => 128, 'height' => 128],
-                'thumb' => ['width' => 320, 'height' => 320],
+                'admin' => ['width' => 128, 'height' => 64],
+                'thumb' => ['width' => 320, 'height' => 160],
             ],
             'languages' => $languages,
         ],

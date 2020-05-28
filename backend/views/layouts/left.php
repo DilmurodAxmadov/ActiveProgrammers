@@ -5,12 +5,12 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                <img src="/images/avatar2.jpeg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
                 <p><?= Yii::$app->user->identity->username ?></p>
 
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <a href="#"><i class="fa fa-circle text-success"></i> Онлайн</a>
             </div>
         </div>
 
@@ -18,9 +18,10 @@
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    ['label' => 'Manage', 'options' => ['class' => 'header']],
-                    ['label' => 'Menus', 'icon' => 'list', 'url' => ['/cms/menu/index']],
-                    ['label' => 'Sliders', 'icon' => 'sliders', 'url' => ['/slider/slides/index?slug=slider']],
+                    ['label' => 'Управление', 'options' => ['class' => 'header']],
+                    ['label' => 'Меню сайта', 'icon' => 'list', 'url' => ['/cms/menu/index']],
+                    ['label' => 'Слайдер', 'icon' => 'sliders', 'url' => ['/slider/slides/index?slug=slider']],
+
                     ['label' => 'Contacts', 'icon' => 'address-book', 'url' => ['/contacts/index']],
                     ['label' => 'Partners', 'icon' => 'users', 'url' => ['/slider/slides/index?slug=partners']],
                     ['label' => 'Gallery Category', 'icon' => 'photo', 'url' => '#', 'items' => [
