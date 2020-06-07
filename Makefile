@@ -8,7 +8,7 @@ db: memory
 	docker-compose up --build -d
 
 de:
-	docker exec -it crrt-php sh
+	docker exec -it example-php sh
 
 test:
 	docker-compose exec php-cli vendor/bin/phpunit

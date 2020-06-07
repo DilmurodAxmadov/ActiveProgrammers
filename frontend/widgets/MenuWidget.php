@@ -2,9 +2,10 @@
 
 namespace frontend\widgets;
 
+use abdualiym\cms\entities\ArticleCategories;
 use abdualiym\cms\entities\Menu;
+use abdualiym\cms\entities\Pages;
 use yii\bootstrap\Widget;
-use yii\helpers\VarDumper;
 
 class MenuWidget extends Widget
 {
@@ -26,9 +27,9 @@ class MenuWidget extends Widget
             } elseif ($node['type'] == Menu::TYPE_LINK) {
                 $node['link'] = mb_strtolower($node['link']);
             } elseif ($node['type'] == Menu::TYPE_PAGE) {
-                $node['link'] = '/page?slug=' . $node['page']['slug'];
+                $node['link'] = '/page/' . $node['page_slug'];
             } elseif ($node['type'] == Menu::TYPE_ARTICLES_CATEGORY) {
-                $node['link'] = '/blog?slug=' . $node['articlesCategory']['slug'];
+                $node['link'] = '/blog/' . $node['articles_category_slug'];
             } else {
                 $node['link'] = '#';
             }
@@ -64,10 +65,10 @@ class MenuWidget extends Widget
                     $array['link'] = $menu->type_helper;
                     break;
                 case Menu::TYPE_PAGE:
-                    $array['page_id'] = $menu->type_helper;
+                    $array['page_slug'] = (Pages::findOne($menu->type_helper))->slug;
                     break;
                 case Menu::TYPE_ARTICLES_CATEGORY:
-                    $array['articles_category_id'] = $menu->type_helper;
+                    $array['articles_category_slug'] = (ArticleCategories::findOne($menu->type_helper))->slug;
                     break;
             }
 

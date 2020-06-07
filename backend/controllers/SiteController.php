@@ -2,11 +2,13 @@
 
 namespace backend\controllers;
 
+use abdualiym\cms\entities\Pages;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\ErrorAction;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -43,6 +45,17 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionPage($slug)
+    {
+        if (!$page = Pages::findOne(['slug' => $slug])) {
+            throw new NotFoundHttpException('Sahifa mavjud emas.', 404);
+        }
+
+        return $this->render('page', [
+            'page' => $page
+        ]);
     }
 
     /**

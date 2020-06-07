@@ -4,7 +4,7 @@ services:
 
   nginx:
     image: nginx:1.17-alpine
-    container_name: crrt-nginx
+    container_name: example-nginx
     restart: unless-stopped
     working_dir: /app
     ports:
@@ -12,11 +12,7 @@ services:
       - 20081:81 # backend
       - 20082:82 # storage
     volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
       - ./:/app
-      # Mount config for development
       - ./docker/nginx:/etc/nginx/conf.d:cached
     links:
       - php-fpm
@@ -24,12 +20,12 @@ services:
       - php-fpm
       - db
     networks:
-      - crrt
+      - example
 
   php-fpm:
     build: docker/php-fpm
     restart: unless-stopped
-    container_name: crrt-php
+    container_name: example-php
     working_dir: /app
     ports:
       - 9000:9000
@@ -40,7 +36,7 @@ services:
     depends_on:
       - db
     networks:
-      - crrt
+      - example
 
   db:
     #    image: postgres:12.2-alpine
@@ -53,20 +49,20 @@ services:
       #      - ./docker/storage/psql:/var/lib/postgresql/data:cached
       - ./docker/storage/mysql:/var/lib/mysql:cached
     environment:
-      #      POSTGRES_USER: crrt
-      #      POSTGRES_PASSWORD: crrt
-      #      POSTGRES_DB: crrt
-      MYSQL_DATABASE: crrt
+      #      POSTGRES_USER: example
+      #      POSTGRES_PASSWORD: example
+      #      POSTGRES_DB: example
+      MYSQL_DATABASE: example
       MYSQL_USER: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_PASSWORD:
       MYSQL_ROOT_PASSWORD:
     networks:
-      - crrt
+      - example
 
 
 networks:
-  crrt:
+  example:
     driver: bridge
     ipam:
       driver: default

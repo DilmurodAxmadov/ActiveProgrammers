@@ -20,19 +20,15 @@
                 'items' => [
                     ['label' => 'Управление', 'options' => ['class' => 'header']],
                     ['label' => 'Меню сайта', 'icon' => 'list', 'url' => ['/cms/menu/index']],
-                    ['label' => 'Слайдер', 'icon' => 'sliders', 'url' => ['/slider/slides/index?slug=slider']],
-
+                    ['label' => 'Категории слайдов', 'icon' => 'users', 'url' => ['/slider/categories']],
+                    ['label' => 'Теги слайдов', 'icon' => 'tags', 'url' => ['/slider/tags/index']],
+                    ['label' => 'Слайдер(Example)', 'icon' => 'sliders', 'url' => ['/slider/slides/index?slug=slider']],
+                    ['label' => 'Галерея(Example)', 'icon' => 'image', 'url' => ['/slider/slides/index?slug=gallery']],
+                    ['label' => 'Страницы', 'icon' => 'font', 'url' => ['/cms/pages/index']],
+                    ['label' => 'Рубрики', 'icon' => 'th-list', 'url' => ['/cms/article-categories/index']],
+                    ['label' => 'Статьи', 'icon' => 'edit', 'url' => ['/cms/articles/index']],
+                    ['label' => '-', 'url' => ['#']],
                     ['label' => 'Contacts', 'icon' => 'address-book', 'url' => ['/contacts/index']],
-                    ['label' => 'Partners', 'icon' => 'users', 'url' => ['/slider/slides/index?slug=partners']],
-                    ['label' => 'Gallery Category', 'icon' => 'photo', 'url' => '#', 'items' => [
-                        ['label' => 'Gallery Category', 'icon' => 'photo', 'url' => ['/slider/tags/index']],
-                        ['label' => 'Galleries', 'icon' => 'photo', 'url' => ['/slider/slides/index?slug=gallery']],
-                    ]],
-                    ['label' => 'Pages', 'icon' => 'file-photo-o', 'url' => ['/cms/pages/index']],
-                    ['label' => 'Article Categories', 'icon' => 'file-code-o', 'url' => '#', 'items' => [
-                        ['label' => 'Article Categories', 'icon' => 'file-code-o', 'url' => ['/cms/article-categories/index']],
-                        ['label' => 'Articles', 'icon' => 'file-code-o', 'url' => ['/cms/articles/index']],
-                    ]],
                 ],
             ]
         ) ?>
