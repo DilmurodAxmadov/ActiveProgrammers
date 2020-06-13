@@ -15,3 +15,6 @@ test:
 
 memory:
 	sudo sysctl -w vm.max_map_count=262144
+
+perm:
+	sudo chown ${USER} console/migrations -R
