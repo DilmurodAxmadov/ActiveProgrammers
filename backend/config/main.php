@@ -56,7 +56,7 @@ return [
             'access' => ['@'],
             'root' => [
                 'baseUrl' => $params['storageHostInfo'],
-                'basePath' => '@storage',
+                'basePath' => '@storageRoot',
                 'path' => 'elfinder-files',
                 'name' => 'Files',
             ],
