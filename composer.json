@@ -22,7 +22,7 @@
         "dmstr/yii2-adminlte-asset": "^2.6",
         "abdualiym/yii2-cms": "^2.0",
         "fishvision/yii2-migrate": "^1.0",
-        "mihaildev/yii2-elfinder": "1.2.2",
+        "mihaildev/yii2-elfinder": "1.4.0",
         "mihaildev/yii2-ckeditor": "1.0.1",
         "yii-dream-team/yii2-upload-behavior": "^1.1",
         "masterexploder/phpthumb": "dev-master",
