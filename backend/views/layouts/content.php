@@ -42,6 +42,6 @@ use yii\widgets\Breadcrumbs;
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
     </div>
-    <strong><a href="http://crrt.uz">crrt.uz &copy; <?= date('Y') ?></a> </strong> All rights
+    <strong><a href="http://proactive.uz">PROACTIVE MEDIA &copy; <?= date('Y') ?></a> </strong> All rights
     reserved.
 </footer>
