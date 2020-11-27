@@ -82,6 +82,7 @@ return [
                 '' => 'Home',
                 'site/contact' => 'Contacts',
                 'site/blog' => 'Blog',
+                'trees/index' => 'Деревья',
             ]
         ],
         'slider' => [ // don`t change module key
