@@ -4,7 +4,7 @@ services:
 
   nginx:
     image: nginx:1.17-alpine
-    container_name: tree-nginx
+    container_name: example-nginx
     restart: unless-stopped
     working_dir: /app
     ports:
@@ -20,12 +20,12 @@ services:
       - php-fpm
       - db
     networks:
-      - tree
+      - example
 
   php-fpm:
     build: docker/php-fpm
     restart: unless-stopped
-    container_name: tree-php
+    container_name: example-php
     working_dir: /app
     ports:
       - 9000:9000
@@ -36,7 +36,7 @@ services:
     depends_on:
       - db
     networks:
-      - tree
+      - example
 
   db:
     #    image: postgres:12.2-alpine
@@ -49,22 +49,22 @@ services:
       #      - ./docker/storage/psql:/var/lib/postgresql/data:cached
       - ./docker/storage/mysql:/var/lib/mysql:cached
     environment:
-      #      POSTGRES_USER: tree
-      #      POSTGRES_PASSWORD: tree
-      #      POSTGRES_DB: tree
-      MYSQL_DATABASE: tree
+      #      POSTGRES_USER: example
+      #      POSTGRES_PASSWORD: example
+      #      POSTGRES_DB: example
+      MYSQL_DATABASE: example
       MYSQL_USER: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_PASSWORD:
       MYSQL_ROOT_PASSWORD:
     networks:
-      - tree
+      - example
 
 
 networks:
-  tree:
+  example:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 192.168.220.0/28
+        - subnet: 192.168.231.0/28
