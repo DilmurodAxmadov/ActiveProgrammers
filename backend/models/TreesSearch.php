@@ -40,7 +40,7 @@ class TreesSearch extends Trees
      */
     public function search($params)
     {
-        $query = Trees::find();
+        $query = Trees::find()->joinWith('mainPhoto');
 
         // add conditions that should always apply here
 

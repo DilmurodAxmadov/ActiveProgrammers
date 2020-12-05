@@ -22,6 +22,7 @@
                     ['label' => 'Меню сайта', 'icon' => 'list', 'url' => ['/cms/menu/index']],
                     ['label' => 'Страницы', 'icon' => 'font', 'url' => ['/cms/pages/index']],
                     ['label' => 'Деревья', 'icon' => 'tree', 'url' => ['/trees/index']],
+                    ['label' => 'Картина', 'icon' => 'image', 'url' => ['/tree-photos/index']],
 //                    ['label' => 'Рубрики', 'icon' => 'th-list', 'url' => ['/cms/article-categories/index']],
 //                    ['label' => 'Статьи', 'icon' => 'edit', 'url' => ['/cms/articles/index']],
 //                    ['label' => '-', 'url' => ['#']],

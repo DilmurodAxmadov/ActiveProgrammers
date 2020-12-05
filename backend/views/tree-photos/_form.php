@@ -1,5 +1,8 @@
 <?php
 
+use backend\models\Trees;
+use kartik\file\FileInput;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,21 +15,30 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tree_id')->textInput() ?>
+    <?= $form->field($model, 'tree_id')->dropDownList(ArrayHelper::map(Trees::find()->all(),'id','name_' . Yii::$app->language), ['prompt' => '- - -']) ?>
 
-    <?= $form->field($model, 'file')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'file')->widget(FileInput::class, [
+        'options' => ['accept' => 'image/*'],
+        'language' => Yii::$app->language,
+        'pluginOptions' => [
+            'showCaption' => false,
+            'showRemove' => false,
+            'showUpload' => false,
+            'browseClass' => 'btn btn-primary btn-block',
+            'browseLabel' => 'Рисунок',
+            'layoutTemplates' => [
+                'main1' => '<div class="kv-upload-progress hide"></div>{remove}{cancel}{upload}{browse}{preview}',
+            ],
+//                    'initialPreview' => [
+//                        Html::img($model->getThumbFileUrl('main_photo_id', 'admin'), ['class' => 'file-preview-image', 'alt' => '', 'title' => '']),
+//                    ],
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
