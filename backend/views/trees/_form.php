@@ -15,8 +15,11 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <?= $form->field($model, 'name_ru')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-2">
+            <?= $form->field($model, 'genus_id')->dropDownList($model->getGenusList(), ['prompt' => '---']) ?>
         </div>
         <div class="col-sm-2">
             <?= $form->field($model, 'girth')->textInput() ?>
@@ -48,6 +51,9 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="col-sm-4">
             <?= $form->field($model, 'special_signs_ru')->textarea(['rows' => 17]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'disease')->textarea(['rows' => 17]) ?>
         </div>
     </div>
 

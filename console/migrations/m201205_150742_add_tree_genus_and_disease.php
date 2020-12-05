@@ -13,7 +13,7 @@ class m201205_150742_add_tree_genus_and_disease extends Migration
      */
     public function safeUp()
     {
-//        $this->addColumn('trees', 'disease', $this->text());
+        $this->addColumn('trees', 'disease', $this->text());
         $this->addColumn('trees', 'genus_id', $this->integer()->notNull());
 
         Trees::updateAll(['genus_id' => 1]);

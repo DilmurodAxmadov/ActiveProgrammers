@@ -31,6 +31,7 @@ YiiAsset::register($this);
         'attributes' => [
             'id',
             'name_ru',
+            'genus.name_ru',
             'description_ru:ntext',
             'special_signs_ru:ntext',
             [

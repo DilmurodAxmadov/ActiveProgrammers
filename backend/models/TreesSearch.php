@@ -17,7 +17,7 @@ class TreesSearch extends Trees
     public function rules()
     {
         return [
-            [['id', 'girth', 'planted_at', 'main_photo_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'girth', 'planted_at', 'main_photo_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at', 'genus_id'], 'integer'],
             [['name_uz', 'name_ru', 'name_en', 'description_uz', 'description_ru', 'description_en', 'special_signs_uz', 'special_signs_ru', 'special_signs_en', 'latitude', 'longitude'], 'safe'],
         ];
     }
@@ -63,6 +63,7 @@ class TreesSearch extends Trees
             'planted_at' => $this->planted_at,
             'main_photo_id' => $this->main_photo_id,
             'status' => $this->status,
+            'genus_id' => $this->genus_id,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,

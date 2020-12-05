@@ -9,6 +9,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 
 /**
@@ -18,6 +19,7 @@ use yii\helpers\VarDumper;
  * @property string $name_uz
  * @property string $name_ru
  * @property string $name_en
+ * @property string|null $disease
  * @property string|null $description_uz
  * @property string|null $description_ru
  * @property string|null $description_en
@@ -30,6 +32,7 @@ use yii\helpers\VarDumper;
  * @property string $longitude
  * @property int|null $main_photo_id
  * @property int $status
+ * @property int $genus_id
  * @property int $created_by
  * @property int $updated_by
  * @property int $created_at
@@ -91,6 +94,8 @@ class Trees extends ActiveRecord
             'latitude' => Yii::t('app', 'Latitude'),
             'longitude' => Yii::t('app', 'Longitude'),
             'main_photo_id' => Yii::t('app', 'Main Photo ID'),
+            'disease' => Yii::t('app', 'Disease'),
+            'genus_id' => Yii::t('app', 'Genus'),
             'status' => Yii::t('app', 'Status'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
@@ -107,6 +112,11 @@ class Trees extends ActiveRecord
     public function getPhotos()
     {
         return $this->hasMany(TreePhotos::class, ['tree_id' => 'id']);
+    }
+
+    public function getGenus()
+    {
+        return $this->hasMany(Genus::class, ['genus_id' => 'id']);
     }
 
     /**
@@ -129,6 +139,13 @@ class Trees extends ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
+
+
+    public function getGenusList()
+    {
+        return ArrayHelper::map(Genus::find()->select(['id', 'name_ru'])->all(), 'id', 'name_ru');
+    }
+
 
     public function getGirthInSM()
     {
