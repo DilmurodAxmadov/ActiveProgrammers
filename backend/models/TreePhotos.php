@@ -5,6 +5,7 @@ namespace backend\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 use yiidreamteam\upload\ImageUploadBehavior;
 
@@ -38,7 +39,7 @@ class TreePhotos extends \yii\db\ActiveRecord
         return [
             [['tree_id', 'file', 'sort'], 'required'],
             [['tree_id', 'sort', 'status'], 'integer'],
-            [['file'], 'string', 'max' => 255],
+            [['file'], 'image'],
             [['tree_id'], 'exist', 'skipOnError' => true, 'targetClass' => Trees::class, 'targetAttribute' => ['tree_id' => 'id']],
         ];
     }
@@ -96,6 +97,16 @@ class TreePhotos extends \yii\db\ActiveRecord
         return $this->id == $id;
     }
 
+    public function afterSave($insert, $changedAttributes): void
+    {
+        $related = $this->getRelatedRecords();
+        parent::afterSave($insert, $changedAttributes);
+        VarDumper::dump($related);die;
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
+    }
+
     public function behaviors(): array
     {
         return [
@@ -105,10 +116,17 @@ class TreePhotos extends \yii\db\ActiveRecord
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'file',
                 'createThumbsOnRequest' => true,
-                'filePath' => '@staticRoot/origin/products/[[attribute_product_id]]/[[id]].[[extension]]',
-                'fileUrl' => '@static/origin/products/[[attribute_product_id]]/[[id]].[[extension]]',
-                'thumbPath' => '@staticRoot/cache/products/[[attribute_product_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@static/cache/products/[[attribute_product_id]]/[[profile]]_[[id]].[[extension]]',
+//                'filePath' => '@staticRoot/images/[[attribute_product_id]]/[[id]].[[extension]]',
+//                'fileUrl' => '@static/images/[[attribute_product_id]]/[[id]].[[extension]]',
+//                'thumbPath' => '@staticRoot/cache/products/[[attribute_product_id]]/[[profile]]_[[id]].[[extension]]',
+//                'thumbUrl' => '@static/cache/products/[[attribute_product_id]]/[[profile]]_[[id]].[[extension]]',
+
+                'filePath' => '@backend/web/app-images/store/trees/[[attribute_tree_id]]/[[filename]].[[extension]]',
+                'fileUrl' => '@url/app-images/store/trees/[[attribute_tree_id]]/[[filename]].[[extension]]',
+
+                'thumbPath' => '@backend/web/app-images/cache/trees/[[attribute_tree_id]]/[[profile]]_[[filename]].[[extension]]',
+                'thumbUrl' => '@url/app-images/cache/trees/[[attribute_tree_id]]/[[profile]]_[[filename]].[[extension]]',
+
                 'thumbs' => [
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 640, 'height' => 480],

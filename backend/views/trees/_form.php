@@ -49,26 +49,6 @@ use yii\widgets\ActiveForm;
         <div class="col-sm-4">
             <?= $form->field($model, 'special_signs_ru')->textarea(['rows' => 17]) ?>
         </div>
-        <div class="col-sm-4">
-            <?= $form->field($model, 'main_photo_id')->widget(FileInput::class, [
-                'options' => ['accept' => 'image/*'],
-                'language' => Yii::$app->language,
-                'pluginOptions' => [
-                    'showCaption' => false,
-                    'showRemove' => false,
-                    'showUpload' => false,
-                    'browseClass' => 'btn btn-primary btn-block',
-                    'browseLabel' => 'Рисунок',
-                    'layoutTemplates' => [
-                        'main1' => '<div class="kv-upload-progress hide"></div>{remove}{cancel}{upload}{browse}{preview}',
-                    ],
-//                    'initialPreview' => [
-//                        Html::img($model->getThumbFileUrl('main_photo_id', 'admin'), ['class' => 'file-preview-image', 'alt' => '', 'title' => '']),
-//                    ],
-                ],
-            ]);
-            ?><?php //= $form->field($model, 'main_photo_id')->textInput() ?>
-        </div>
     </div>
 
     <div class="form-group">

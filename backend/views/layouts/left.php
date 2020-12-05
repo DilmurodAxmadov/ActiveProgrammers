@@ -23,6 +23,8 @@
                     ['label' => 'Страницы', 'icon' => 'font', 'url' => ['/cms/pages/index']],
                     ['label' => 'Деревья', 'icon' => 'tree', 'url' => ['/trees/index']],
                     ['label' => 'Род', 'icon' => 'th-list', 'url' => ['/genus/index']],
+                    ['label' => 'Рисунок', 'icon' => 'image', 'url' => ['/tree-photos/index']],
+//                    ['label' => 'Рубрики', 'icon' => 'th-list', 'url' => ['/cms/article-categories/index']],
 //                    ['label' => 'Статьи', 'icon' => 'edit', 'url' => ['/cms/articles/index']],
 //                    ['label' => '-', 'url' => ['#']],
 //                    ['label' => 'Contacts', 'icon' => 'address-book', 'url' => ['/contacts/index']],
