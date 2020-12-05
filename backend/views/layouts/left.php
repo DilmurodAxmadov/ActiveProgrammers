@@ -22,7 +22,7 @@
                     ['label' => 'Меню сайта', 'icon' => 'list', 'url' => ['/cms/menu/index']],
                     ['label' => 'Страницы', 'icon' => 'font', 'url' => ['/cms/pages/index']],
                     ['label' => 'Деревья', 'icon' => 'tree', 'url' => ['/trees/index']],
-//                    ['label' => 'Рубрики', 'icon' => 'th-list', 'url' => ['/cms/article-categories/index']],
+                    ['label' => 'Род', 'icon' => 'th-list', 'url' => ['/genus/index']],
 //                    ['label' => 'Статьи', 'icon' => 'edit', 'url' => ['/cms/articles/index']],
 //                    ['label' => '-', 'url' => ['#']],
 //                    ['label' => 'Contacts', 'icon' => 'address-book', 'url' => ['/contacts/index']],
