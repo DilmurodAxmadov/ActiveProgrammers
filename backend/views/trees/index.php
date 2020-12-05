@@ -1,5 +1,6 @@
 <?php
 
+use backend\models\Trees;
 use yii\grid\GridView;
 use yii\grid\SerialColumn;
 use yii\helpers\ArrayHelper;
@@ -42,7 +43,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('app', 'Genus')
             ],
             'girth',
-            'planted_at:date',
+            [
+                'attribute' => 'planted_at',
+                'value' => function (Trees $model) {
+                    return Yii::$app->formatter->asDate($model->planted_at) . "(". Yii::$app->formatter->asRelativeTime($model->planted_at).")";
+                },
+            ],
             [
                 'attribute' => 'main_photo_id',
                 'value' => function ($searchModel) {

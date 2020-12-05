@@ -41,7 +41,12 @@ YiiAsset::register($this);
                 },
                 'label' => "Обхват(см)",
             ],
-            'planted_at:date',
+            [
+                'attribute' => 'planted_at',
+                'value' => function (Trees $model) {
+                    return Yii::$app->formatter->asDate($model->planted_at) . "(". Yii::$app->formatter->asRelativeTime($model->planted_at).")";
+                },
+            ],
             'latitude',
             'longitude',
             'main_photo_id',

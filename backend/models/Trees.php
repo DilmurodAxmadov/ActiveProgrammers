@@ -59,7 +59,7 @@ class Trees extends ActiveRecord
             [['name_ru', 'girth', 'planted_at', 'latitude', 'longitude'], 'required'],
             [['name_uz', 'name_ru', 'name_en'], 'string', 'max' => 255],
 
-            [['description_uz', 'description_ru', 'description_en', 'special_signs_uz', 'special_signs_ru', 'special_signs_en'], 'string'],
+            [['description_uz', 'description_ru', 'description_en', 'special_signs_uz', 'special_signs_ru', 'special_signs_en', 'disease'], 'string'],
 
             [['status'], 'integer'],
             [['status'], 'default', 'value' => self::STATUS_OK],
@@ -70,6 +70,8 @@ class Trees extends ActiveRecord
 
             [['planted_at'], 'string'],
 
+            [['genus_id'], 'integer'],
+            [['genus_id'], 'exist', 'targetClass' => Genus::class, 'targetAttribute' => ['genus_id' => 'id']],
             //todo
 //            [['main_photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => TreePhotos::class, 'targetAttribute' => ['main_photo_id' => 'id']],
         ];
@@ -116,7 +118,7 @@ class Trees extends ActiveRecord
 
     public function getGenus()
     {
-        return $this->hasMany(Genus::class, ['genus_id' => 'id']);
+        return $this->hasOne(Genus::class, ['id' => 'genus_id']);
     }
 
     /**
