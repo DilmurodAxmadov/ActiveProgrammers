@@ -1,0 +1,15 @@
+stages:
+  - deploy
+deploy_production:
+  stage: deploy
+  script:
+    - rsync -av * /var/www/html/www.tree.uz/ --no-perms --no-owner --no-group
+    - cd /var/www/html/www.tree.uz/
+    - YII_ENV=prod php ./init --env=Production --overwrite=All
+    - composer install
+    - YII_ENV=prod php ./yii migrate/up --interactive=0
+  environment:
+    name: production
+    url: https://tree.proactive.uz/
+  only:
+    - master
