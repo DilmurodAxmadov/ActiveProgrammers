@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\TreePhotos;
+use backend\models\Park;
 
 /**
- * TreePhotosSearch represents the model behind the search form of `backend\models\TreePhotos`.
+ * ParkSearch represents the model behind the search form of `backend\models\Park`.
  */
-class TreePhotosSearch extends TreePhotos
+class ParkSearch extends Park
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class TreePhotosSearch extends TreePhotos
     public function rules()
     {
         return [
-            [['id', 'tree_id', 'sort', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['file'], 'safe'],
+            [['id', 'region_id'], 'integer'],
+            [['name_uz', 'address_uz', 'description_uz', 'name_ru', 'address_ru', 'description_ru', 'name_en', 'address_en', 'description_en'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class TreePhotosSearch extends TreePhotos
      */
     public function search($params)
     {
-        $query = TreePhotos::find();
+        $query = Park::find();
 
         // add conditions that should always apply here
 
@@ -59,16 +59,18 @@ class TreePhotosSearch extends TreePhotos
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tree_id' => $this->tree_id,
-            'sort' => $this->sort,
-            'status' => $this->status,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'region_id' => $this->region_id,
         ]);
 
-        $query->andFilterWhere(['like', 'file', $this->file]);
+        $query->andFilterWhere(['like', 'name_uz', $this->name_uz])
+            ->andFilterWhere(['like', 'address_uz', $this->address_uz])
+            ->andFilterWhere(['like', 'description_uz', $this->description_uz])
+            ->andFilterWhere(['like', 'name_ru', $this->name_ru])
+            ->andFilterWhere(['like', 'address_ru', $this->address_ru])
+            ->andFilterWhere(['like', 'description_ru', $this->description_ru])
+            ->andFilterWhere(['like', 'name_en', $this->name_en])
+            ->andFilterWhere(['like', 'address_en', $this->address_en])
+            ->andFilterWhere(['like', 'description_en', $this->description_en]);
 
         return $dataProvider;
     }

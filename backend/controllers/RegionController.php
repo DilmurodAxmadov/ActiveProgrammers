@@ -2,18 +2,17 @@
 
 namespace backend\controllers;
 
-use backend\models\PhotosForm;
 use Yii;
-use backend\models\TreePhotos;
-use backend\models\TreePhotosSearch;
+use backend\models\Region;
+use backend\models\RegionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TreePhotosController implements the CRUD actions for TreePhotos model.
+ * RegionController implements the CRUD actions for Region model.
  */
-class TreePhotosController extends Controller
+class RegionController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -22,7 +21,7 @@ class TreePhotosController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -31,12 +30,12 @@ class TreePhotosController extends Controller
     }
 
     /**
-     * Lists all TreePhotos models.
+     * Lists all Region models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TreePhotosSearch();
+        $searchModel = new RegionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +45,7 @@ class TreePhotosController extends Controller
     }
 
     /**
-     * Displays a single TreePhotos model.
+     * Displays a single Region model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,13 +58,13 @@ class TreePhotosController extends Controller
     }
 
     /**
-     * Creates a new TreePhotos model.
+     * Creates a new Region model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new TreePhotos();
+        $model = new Region();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -77,7 +76,7 @@ class TreePhotosController extends Controller
     }
 
     /**
-     * Updates an existing TreePhotos model.
+     * Updates an existing Region model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,7 +96,7 @@ class TreePhotosController extends Controller
     }
 
     /**
-     * Deletes an existing TreePhotos model.
+     * Deletes an existing Region model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -111,18 +110,18 @@ class TreePhotosController extends Controller
     }
 
     /**
-     * Finds the TreePhotos model based on its primary key value.
+     * Finds the Region model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return TreePhotos the loaded model
+     * @return Region the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TreePhotos::findOne($id)) !== null) {
+        if (($model = Region::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

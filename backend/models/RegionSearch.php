@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\TreePhotos;
+use backend\models\Region;
 
 /**
- * TreePhotosSearch represents the model behind the search form of `backend\models\TreePhotos`.
+ * RegionSearch represents the model behind the search form of `backend\models\Region`.
  */
-class TreePhotosSearch extends TreePhotos
+class RegionSearch extends Region
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class TreePhotosSearch extends TreePhotos
     public function rules()
     {
         return [
-            [['id', 'tree_id', 'sort', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['file'], 'safe'],
+            [['id'], 'integer'],
+            [['name_uz', 'name_ru', 'name_en'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class TreePhotosSearch extends TreePhotos
      */
     public function search($params)
     {
-        $query = TreePhotos::find();
+        $query = Region::find();
 
         // add conditions that should always apply here
 
@@ -59,16 +59,11 @@ class TreePhotosSearch extends TreePhotos
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tree_id' => $this->tree_id,
-            'sort' => $this->sort,
-            'status' => $this->status,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'file', $this->file]);
+        $query->andFilterWhere(['like', 'name_uz', $this->name_uz])
+            ->andFilterWhere(['like', 'name_ru', $this->name_ru])
+            ->andFilterWhere(['like', 'name_en', $this->name_en]);
 
         return $dataProvider;
     }

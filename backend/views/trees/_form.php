@@ -57,6 +57,15 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
+    <div>
+        <?= $form->field($model, 'files')->label(false)->widget(FileInput::class, [
+            'options' => [
+                'accept' => 'image/*',
+//                'multiple' => true,
+            ]
+        ]) ?>
+    </div>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
