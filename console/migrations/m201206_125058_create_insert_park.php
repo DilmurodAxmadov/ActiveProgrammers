@@ -3,29 +3,29 @@
 use yii\db\Migration;
 
 /**
- * Class m201206_101604_create_add_insert_park
+ * Class m201206_125058_create_insert_park
  */
-
-class m201206_101604_create_add_insert_park extends Migration
+class m201206_125058_create_insert_park extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
-    {
-        $this->insert('park',
-            [
-                'name_uz' => 'Orol potensial geoparki',
-                'address_uz' => 'Mo`ynoq, Sharqiy Ustyurt, Orol Dengizi, Chink',
-                'description_uz' => 'Ilmiy, ekstremal, istiqbolda o`quv va ommaviy turizm',
-                'name_ru' => 'Геопарк Аральский потенциальный',
-                'address_ru' => 'Муйнак, Восточный устюрт, Аральское море, Чинк',
-                'description_ru' => 'Научный, экстремальный, в перспективе научный и туристический',
-                'name_en' => null,
-                'address_en' => null,
-                'description_en' => null,
-                'region_id' => null,
-            ],
+    {$this->insert('{{%park}}',
+        [
+            'name_uz' => 'Orol potensial geoparki',
+            'address_uz' => 'Moynoq, Sharqiy Ustyurt, Orol Dengizi, Chink',
+            'description_uz' => 'Ilmiy, ekstremal, istiqbolda o`quv va ommaviy turizm',
+            'name_ru' => 'Геопарк Аральский потенциальный',
+            'address_ru' => 'Муйнак, Восточный устюрт, Аральское море, Чинк',
+            'description_ru' => 'Научный, экстремальный, в перспективе научный и туристический',
+            'name_en' => null,
+            'address_en' => null,
+            'description_en' => null,
+            'region_id' => null,
+        ]);
+
+        $this->insert('{{%park}}',
             [
                 'name_uz' => 'Sulton Uvays potensial geoparki',
                 'address_uz' => 'Qorao`zak, Beruniy, Xo`jako`l botiqligining Sharqiy tomoni',
@@ -37,19 +37,23 @@ class m201206_101604_create_add_insert_park extends Migration
                 'address_en' => null,
                 'description_en' => null,
                 'region_id' => null,
-            ],
+            ]);
+
+        $this->insert('{{%park}}',
             [
                 'name_uz' => 'Hisor potensial geoparki',
-                'address_uz' => 'Darbin-Hisor, Darband qo`rg`oni, Boysintog` tizmasi, Sherobod daryo havzasi, Laylakon qo`r`goni',
-                'description_uz' => 'Ilmiy, o`quv va ommaviy turizm',
+                'address_uz' => 'Darbin-Hisor, Darband qorgoni, Boysintog tizmasi, Sherobod daryo havzasi, Laylakon qorgoni',
+                'description_uz' => 'Ilmiy, oquv va ommaviy turizm',
                 'name_ru' => 'Геопарк Гиссар потенциальный',
                 'address_ru' => 'Дарбин-Гиссар, поселек Дарбанд, хребет Байсунтау, побережья озера Шеробод, поселек Лайлакон',
                 'description_ru' => 'Научный, учебный и туристический',
-                'name_en' => $this->string(),
-                'address_en' => $this->string(),
-                'description_en' => $this->string(),
-                'region_id' => $this->integer(),
-            ],
+                'name_en' => null,
+                'address_en' => null,
+                'description_en' => null,
+                'region_id' => null,
+            ]);
+
+        $this->insert('{{%park}}',
             [
                 'name_uz' => 'Bogambir potensial geoparki',
                 'address_uz' => 'Forish Shimoliy Nuratovning Shimoliy etaklari Pastko`cha qishlog`i',
@@ -61,17 +65,20 @@ class m201206_101604_create_add_insert_park extends Migration
                 'address_en' => null,
                 'description_en' => null,
                 'region_id' => null,
-            ],
-            ['name_uz' => 'Orol potensial geoparki',
-                'address_uz' => 'Mo`ynoq, Sharqiy Ustyurt, Orol Dengizi, Chink',
-                'description_uz' => $this->string(),
-                'name_ru' => $this->string(),
-                'address_ru' => $this->string(),
-                'description_ru' => $this->string(),
-                'name_en' => $this->string(),
-                'address_en' => $this->string(),
-                'description_en' => $this->string(),
-                'region_id' => $this->integer(),
+            ]);
+
+        $this->insert('{{%park}}',
+            [
+                'name_uz' => 'Kitob potensial geoparki',
+                'address_uz' => 'Qashqadaryo daryosi havzasidagi Zarafshon tizmasi janubi-g`arbiy tarmoqlari',
+                'description_uz' => 'Ilmiy, o`quv va ommaviy turizm',
+                'name_ru' => 'Геопарк Китабский потенциальный',
+                'address_ru' => 'Побережья реки Кашкадарья, хребет Зарафшан, юго-западная чать',
+                'description_ru' => 'Научный, учебный и туристический',
+                'name_en' => null,
+                'address_en' => null,
+                'description_en' => null,
+                'region_id' => null,
             ]);
 
     }
@@ -81,7 +88,7 @@ class m201206_101604_create_add_insert_park extends Migration
      */
     public function safeDown()
     {
-        echo "m201206_101604_create_add_insert_park cannot be reverted.\n";
+        echo "m201206_125058_create_insert_park cannot be reverted.\n";
 
         return false;
     }
@@ -95,7 +102,7 @@ class m201206_101604_create_add_insert_park extends Migration
 
     public function down()
     {
-        echo "m201206_101604_create_add_insert_park cannot be reverted.\n";
+        echo "m201206_125058_create_insert_park cannot be reverted.\n";
 
         return false;
     }

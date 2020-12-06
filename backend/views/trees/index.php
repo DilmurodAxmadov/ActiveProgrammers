@@ -57,6 +57,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'label' => 'Photo',
             ],
+            [
+                'attribute' => 'park_id',
+                'value' => function ($searchModel) {
+                    return $searchModel->park_id ? $searchModel->park->name_uz : '';
+                },
+                'format' => 'raw',
+                'label' => 'Photo',
+            ],
         ],
     ]) ?>
 
