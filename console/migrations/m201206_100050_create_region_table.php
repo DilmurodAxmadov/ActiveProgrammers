@@ -14,6 +14,7 @@ class m201206_100050_create_region_table extends Migration
     {
         $this->createTable('{{%region}}', [
             'id' => $this->primaryKey(),
+            'name' => $this->string()
         ]);
     }
 
