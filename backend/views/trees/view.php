@@ -36,6 +36,7 @@ YiiAsset::register($this);
         'attributes' => [
             'id',
             'name_ru',
+            'genus.name_ru',
             'description_ru:ntext',
             'special_signs_ru:ntext',
             [
@@ -45,7 +46,12 @@ YiiAsset::register($this);
                 },
                 'label' => "Обхват(см)",
             ],
-            'planted_at:date',
+            [
+                'attribute' => 'planted_at',
+                'value' => function (Trees $model) {
+                    return Yii::$app->formatter->asDate($model->planted_at) . "(". Yii::$app->formatter->asRelativeTime($model->planted_at).")";
+                },
+            ],
             'latitude',
             'longitude',
             'main_photo_id',

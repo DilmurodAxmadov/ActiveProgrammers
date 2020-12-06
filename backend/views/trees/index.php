@@ -1,8 +1,9 @@
 <?php
 
-use yii\grid\ActionColumn;
+use backend\models\Trees;
 use yii\grid\GridView;
 use yii\grid\SerialColumn;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 
@@ -28,21 +29,36 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => SerialColumn::class],
 
             'id',
-            'name_ru',
+            [
+                'attribute' => 'name_ru',
+                'value' => function ($model) {
+                    return Html::a($model->name_ru, ['trees/view', 'id' => $model->id]);
+                },
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'genus_id',
+                'value' => 'genus.name_ru',
+                'filter' => Html::activeDropDownList($searchModel, 'genus_id', $searchModel->getGenusList(), ['class' => 'form-control', 'prompt' => '---']),
+                'label' => Yii::t('app', 'Genus')
+            ],
             'girth',
-            'planted_at:date',
+            [
+                'attribute' => 'planted_at',
+                'value' => function (Trees $model) {
+                    return Yii::$app->formatter->asDate($model->planted_at) . "(". Yii::$app->formatter->asRelativeTime($model->planted_at).")";
+                },
+            ],
             [
                 'attribute' => 'main_photo_id',
                 'value' => function ($searchModel) {
                     return Html::img($searchModel->mainPhoto ? $searchModel->mainPhoto->getThumbFileUrl('file', 'admin') : Yii::getAlias('@backend/web') . '/placeholder.jpg');
                 },
                 'format' => 'raw',
+                'label' => 'Photo',
             ],
-            'status',
-
-            ['class' => ActionColumn::class],
         ],
-    ]); ?>
+    ]) ?>
 
     <?php Pjax::end(); ?>
 

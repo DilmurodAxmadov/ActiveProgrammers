@@ -11,6 +11,8 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
+use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "trees".
@@ -19,6 +21,7 @@ use yii\web\UploadedFile;
  * @property string $name_uz
  * @property string $name_ru
  * @property string $name_en
+ * @property string|null $disease
  * @property string|null $description_uz
  * @property string|null $description_ru
  * @property string|null $description_en
@@ -31,6 +34,7 @@ use yii\web\UploadedFile;
  * @property string $longitude
  * @property int|null $main_photo_id
  * @property int $status
+ * @property int $genus_id
  * @property int $created_by
  * @property int $updated_by
  * @property int $created_at
@@ -56,7 +60,7 @@ class Trees extends ActiveRecord
             [['name_ru', 'girth', 'planted_at', 'latitude', 'longitude'], 'required'],
             [['name_uz', 'name_ru', 'name_en'], 'string', 'max' => 255],
 
-            [['description_uz', 'description_ru', 'description_en', 'special_signs_uz', 'special_signs_ru', 'special_signs_en'], 'string'],
+            [['description_uz', 'description_ru', 'description_en', 'special_signs_uz', 'special_signs_ru', 'special_signs_en', 'disease'], 'string'],
 
             [['status'], 'integer'],
             [['status'], 'default', 'value' => self::STATUS_OK],
@@ -67,6 +71,8 @@ class Trees extends ActiveRecord
 
             [['planted_at'], 'string'],
 
+            [['genus_id'], 'integer'],
+            [['genus_id'], 'exist', 'targetClass' => Genus::class, 'targetAttribute' => ['genus_id' => 'id']],
             //todo
             [['main_photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => TreePhotos::class, 'targetAttribute' => ['main_photo_id' => 'id']],
         ];
@@ -91,6 +97,8 @@ class Trees extends ActiveRecord
             'latitude' => Yii::t('app', 'Latitude'),
             'longitude' => Yii::t('app', 'Longitude'),
             'main_photo_id' => Yii::t('app', 'Main Photo ID'),
+            'disease' => Yii::t('app', 'Disease'),
+            'genus_id' => Yii::t('app', 'Genus'),
             'status' => Yii::t('app', 'Status'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
@@ -107,6 +115,11 @@ class Trees extends ActiveRecord
     public function getPhotos()
     {
         return $this->hasMany(TreePhotos::class, ['tree_id' => 'id'])->orderBy('sort');
+    }
+
+    public function getGenus()
+    {
+        return $this->hasOne(Genus::class, ['id' => 'genus_id']);
     }
 
     /**
@@ -129,6 +142,13 @@ class Trees extends ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
+
+
+    public function getGenusList()
+    {
+        return ArrayHelper::map(Genus::find()->select(['id', 'name_ru'])->all(), 'id', 'name_ru');
+    }
+
 
     public function getGirthInSM()
     {
