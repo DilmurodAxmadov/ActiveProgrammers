@@ -12,6 +12,11 @@ class m201206_095457_create_park_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
         $this->createTable('{{%park}}', [
             'id' => $this->primaryKey(),
             'name_uz' => $this->string(),
@@ -24,7 +29,7 @@ class m201206_095457_create_park_table extends Migration
             'address_en' => $this->string(),
             'description_en' => $this->string(),
             'region_id' => $this->integer(),
-        ]);
+        ], $tableOptions);
 
         $this->createIndex('{{%idx-park-region_id}}', '{{%park}}', 'region_id');
         $this->addForeignKey('{{%fk-park-region_id}}', '{{%park}}', 'region_id', '{{%region}}', 'id', 'RESTRICT', 'RESTRICT');

@@ -48,6 +48,8 @@ class Trees extends ActiveRecord
 
     public const STATUS_OK = 1;
 
+    public $files;
+
     public static function tableName(): string
     {
         return 'trees';
@@ -73,6 +75,10 @@ class Trees extends ActiveRecord
 
             [['genus_id'], 'integer'],
             [['genus_id'], 'exist', 'targetClass' => Genus::class, 'targetAttribute' => ['genus_id' => 'id']],
+
+            [['park_id'], 'integer'],
+            [['park_id'], 'exist', 'targetClass' => Park::class, 'targetAttribute' => ['genus_id' => 'id']],
+
             //todo
             [['main_photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => TreePhotos::class, 'targetAttribute' => ['main_photo_id' => 'id']],
         ];
@@ -115,6 +121,11 @@ class Trees extends ActiveRecord
     public function getPhotos()
     {
         return $this->hasMany(TreePhotos::class, ['tree_id' => 'id'])->orderBy('sort');
+    }
+
+    public function getPark()
+    {
+        return $this->hasOne(Park::class, ['id' => 'park_id']);
     }
 
     public function getGenus()

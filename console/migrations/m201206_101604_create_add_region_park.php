@@ -5,25 +5,40 @@ use yii\db\Migration;
 /**
  * Class m201206_101604_create_add_insert_park
  */
-class m201206_101604_create_add_insert_park extends Migration
+class m201206_101604_create_add_region_park extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->insert('park', [
-            'name_uz' => 'Orol potensial geoparki',
-            'address_uz' => '',
-            'description_uz' => $this->string(),
-            'name_ru' => $this->string(),
-            'address_ru' => $this->string(),
-            'description_ru' => $this->string(),
-            'name_en' => $this->string(),
-            'address_en' => $this->string(),
-            'description_en' => $this->string(),
-            'region_id' => $this->integer(),
-        ]);
+        $this->insert('region',
+            [
+                'name_uz' => 'Qoraqalpogiston Respublikasi',
+                'name_ru' => 'Республика Каракалпакстан',
+                'name_en' => 'Republic of Karakalpakstan',
+            ]);
+
+        $this->insert('region',
+            [
+                'name_uz' => 'Jizzax viloyati',
+                'name_ru' => 'Джиззакская область',
+                'name_en' => 'Djizzakh region',
+            ]);
+
+        $this->insert('region',
+            [
+                'name_uz' => 'Surxandaryo viloyati',
+                'name_ru' => 'Сурхандарьинская область',
+                'name_en' => 'Surkhandarya region',
+            ]);
+
+        $this->insert('region',
+            [
+                'name_uz' => 'Qashqadaryo viloyati',
+                'name_ru' => 'Кашкадарьинская область',
+                'name_en' => 'Kashkadarya region',
+            ]);
 
     }
 
