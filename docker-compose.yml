@@ -8,9 +8,8 @@ services:
     restart: unless-stopped
     working_dir: /app
     ports:
-      - 20080:80 # frontend
-      - 20081:81 # backend
-      - 20082:82 # storage
+      - 20085:85 # frontend
+      - 20086:86 # backend
     volumes:
       - ./:/app
       - ./docker/nginx:/etc/nginx/conf.d:cached
@@ -28,7 +27,7 @@ services:
     container_name: tree-php
     working_dir: /app
     ports:
-      - 9000:9000
+      - 9001:9001
     volumes:
       - ./:/app:cached
     links:

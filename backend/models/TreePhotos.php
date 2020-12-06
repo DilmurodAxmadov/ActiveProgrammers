@@ -27,23 +27,10 @@ use yiidreamteam\upload\ImageUploadBehavior;
  */
 class TreePhotos extends \yii\db\ActiveRecord
 {
-
     public static function tableName()
     {
         return 'tree_photos';
     }
-
-
-    public function rules()
-    {
-        return [
-            [['tree_id', 'file', 'sort'], 'required'],
-            [['tree_id', 'sort', 'status'], 'integer'],
-            [['file'], 'image'],
-            [['tree_id'], 'exist', 'skipOnError' => true, 'targetClass' => Trees::class, 'targetAttribute' => ['tree_id' => 'id']],
-        ];
-    }
-
 
     public function attributeLabels()
     {
@@ -58,26 +45,6 @@ class TreePhotos extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
-    }
-
-    /**
-     * Gets query for [[Tree]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTree()
-    {
-        return $this->hasOne(Trees::class, ['id' => 'tree_id']);
-    }
-
-    /**
-     * Gets query for [[Trees]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTrees()
-    {
-        return $this->hasMany(Trees::class, ['main_photo_id' => 'id']);
     }
 
     public static function create(UploadedFile $file): self
@@ -95,16 +62,6 @@ class TreePhotos extends \yii\db\ActiveRecord
     public function isIdEqualTo($id): bool
     {
         return $this->id == $id;
-    }
-
-    public function afterSave($insert, $changedAttributes): void
-    {
-        $related = $this->getRelatedRecords();
-        parent::afterSave($insert, $changedAttributes);
-        VarDumper::dump($related);die;
-        if (array_key_exists('mainPhoto', $related)) {
-            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
-        }
     }
 
     public function behaviors(): array

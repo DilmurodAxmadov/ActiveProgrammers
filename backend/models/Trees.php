@@ -3,13 +3,14 @@
 namespace backend\models;
 
 use common\models\User;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\helpers\VarDumper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "trees".
@@ -35,7 +36,6 @@ use yii\helpers\VarDumper;
  * @property int $created_at
  * @property int $updated_at
  *
- * @property TreePhotos[] $treePhotos
  * @property TreePhotos $mainPhoto
  * @property TreePhotos[] $photos
  */
@@ -68,7 +68,7 @@ class Trees extends ActiveRecord
             [['planted_at'], 'string'],
 
             //todo
-//            [['main_photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => TreePhotos::class, 'targetAttribute' => ['main_photo_id' => 'id']],
+            [['main_photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => TreePhotos::class, 'targetAttribute' => ['main_photo_id' => 'id']],
         ];
     }
 
@@ -106,7 +106,7 @@ class Trees extends ActiveRecord
      */
     public function getPhotos()
     {
-        return $this->hasMany(TreePhotos::class, ['tree_id' => 'id']);
+        return $this->hasMany(TreePhotos::class, ['tree_id' => 'id'])->orderBy('sort');
     }
 
     /**
@@ -135,25 +135,93 @@ class Trees extends ActiveRecord
         return round($this->girth / 10, 1) . " см";
     }
 
-    //    public function beforeDelete(): bool
-//    {
-//        if (parent::beforeDelete()) {
-//            foreach ($this->photos as $photo) {
-//                $photo->delete();
-//            }
-//            return true;
-//        }
-//        return false;
-//    }
+    public function beforeDelete(): bool
+    {
+        if (parent::beforeDelete()) {
+            foreach ($this->photos as $photo) {
+                $photo->delete();
+            }
+            return true;
+        }
+        return false;
+    }
 
-//    public function afterSave($insert, $changedAttributes): void
-//    {
-//        $related = $this->getRelatedRecords();
-//        parent::afterSave($insert, $changedAttributes);
-//        if (array_key_exists('mainPhoto', $related)) {
-//            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
-//        }
-//    }
+    public function afterSave($insert, $changedAttributes): void
+    {
+        $related = $this->getRelatedRecords();
+        parent::afterSave($insert, $changedAttributes);
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
+    }
+
+
+    public function addPhoto(UploadedFile $file): void
+    {
+        $photos = $this->photos;
+        $photos[] = TreePhotos::create($file);
+        $this->updatePhotos($photos);
+    }
+
+    public function removePhotos(): void
+    {
+        $this->updatePhotos([]);
+    }
+
+    private function updatePhotos(array $photos): void
+    {
+        foreach ($photos as $i => $photo) {
+            $photo->setSort($i);
+        }
+        $this->photos = $photos;
+        $this->populateRelation('mainPhoto', reset($photos));
+    }
+
+    public function movePhotoUp($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                if ($prev = $photos[$i - 1] ?? null) {
+                    $photos[$i - 1] = $photo;
+                    $photos[$i] = $prev;
+                    $this->updatePhotos($photos);
+                }
+                return;
+            }
+        }
+        throw new \DomainException(\Yii::t('app', 'Photo is not found.'));
+    }
+
+    public function movePhotoDown($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                if ($next = $photos[$i + 1] ?? null) {
+                    $photos[$i] = $next;
+                    $photos[$i + 1] = $photo;
+                    $this->updatePhotos($photos);
+                }
+                return;
+            }
+        }
+        throw new \DomainException(\Yii::t('app', 'Photo is not found.'));
+    }
+
+    public function removePhoto($id): void
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                unset($photos[$i]);
+                $this->updatePhotos($photos);
+                return;
+            }
+        }
+        throw new \DomainException(\Yii::t('app', 'Photo is not found.'));
+    }
+
 
     public function behaviors(): array
     {
@@ -169,6 +237,10 @@ class Trees extends ActiveRecord
                 'value' => function () {
                     return (int)strtotime($this->planted_at);
                 },
+            ],
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => ['photos'],
             ],
         ];
     }

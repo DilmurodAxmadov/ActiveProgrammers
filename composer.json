@@ -31,11 +31,11 @@
         "codemix/yii2-localeurls": "^1.7.1",
         "abdualiym/yii2-slider": "^2.0",
         "abdualiym/yii2-language": "^1.0",
-        "abdualiym/yii2-block": "^1.1"
+        "abdualiym/yii2-block": "^1.1",
+        "la-haute-societe/yii2-save-relations-behavior": "^1.2"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master"
-        ,
+        "roave/security-advisories": "dev-master",
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.1.0",
         "yiisoft/yii2-faker": "~2.0.0",

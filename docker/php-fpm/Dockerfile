@@ -6,5 +6,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apk add --no-cache git
 
 
-EXPOSE 9000
+EXPOSE 9001
 CMD ["php-fpm", "-F"]

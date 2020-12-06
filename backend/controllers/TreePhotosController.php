@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\PhotosForm;
 use Yii;
 use backend\models\TreePhotos;
 use backend\models\TreePhotosSearch;

@@ -2,9 +2,11 @@
 
 namespace backend\controllers;
 
+use backend\models\PhotosForm;
 use Yii;
 use backend\models\Trees;
 use backend\models\TreesSearch;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,9 +54,38 @@ class TreesController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        $photosForm = new PhotosForm();
+        if ($photosForm->load(Yii::$app->request->post()) && $photosForm->validate()) {
+//            VarDumper::dump($photosForm,12,true);die;
+            try {
+//                VarDumper::dump($photosForm->getErrors(),12,true);die;
+                $this->addPhotos($model->id, $photosForm);
+                return $this->redirect(['view', 'id' => $model->id]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'photosForm' => $photosForm,
         ]);
+    }
+
+    public function addPhotos($id, PhotosForm $form)
+    {
+        $model = $this->get($id);
+        foreach ($form->files as $file) {
+            $model->addPhoto($file);
+        }
+//        VarDumper::dump($model->hasErrors(), 12, true);die;
+
+        if (!$model->save()) {
+            throw new \RuntimeException('Saving error.');
+        }
     }
 
     /**
@@ -109,7 +140,39 @@ class TreesController extends Controller
         return $this->redirect(['index']);
     }
 
+
+    public function actionDeletePhoto($id, $photo_id)
+    {
+        try {
+            $this->removePhoto($id, $photo_id);
+        } catch (\DomainException $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(['view', 'id' => $id, '#' => 'photos']);
+    }
+
     /**
+     * @param integer $id
+     * @param $photo_id
+     * @return mixed
+     */
+    public function actionMovePhotoUp($id, $photo_id)
+    {
+        $this->movePhotoUp($id, $photo_id);
+        return $this->redirect(['view', 'id' => $id, '#' => 'photos']);
+    }
+
+    /**
+     * @param integer $id
+     * @param $photo_id
+     * @return mixed
+     */
+    public function actionMovePhotoDown($id, $photo_id)
+    {
+        $this->movePhotoDown($id, $photo_id);
+    }
+
+        /**
      * Finds the Trees model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -123,5 +186,34 @@ class TreesController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public function get($id): Trees
+    {
+        if (!$model = Trees::findOne($id)) {
+            throw new \DomainException('Product is not found.');
+        }
+        return $model;
+    }
+
+    public function movePhotoUp($id, $photoId): void
+    {
+        $model = $this->get($id);
+        $model->movePhotoUp($photoId);
+        $model->save();
+    }
+
+    public function movePhotoDown($id, $photoId): void
+    {
+        $model = $this->get($id);
+        $model->movePhotoDown($photoId);
+        $model->save();
+    }
+
+    public function removePhoto($id, $photoId): void
+    {
+        $model = $this->get($id);
+        $model->removePhoto($photoId);
+        $model->save();
     }
 }
