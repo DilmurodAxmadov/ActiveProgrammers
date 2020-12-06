@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($searchModel->mainPhoto ? $searchModel->mainPhoto->getThumbFileUrl('file', 'admin') : Yii::getAlias('@backend/web') . '/placeholder.jpg');
                 },
                 'format' => 'raw',
-                'label' => 'Photo',
+                'label' => 'Фото',
             ],
             [
                 'attribute' => 'park_id',
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $searchModel->park_id ? $searchModel->park->name_uz : '';
                 },
                 'format' => 'raw',
-                'label' => 'Photo',
+                'label' => 'Парк',
             ],
         ],
     ]) ?>
