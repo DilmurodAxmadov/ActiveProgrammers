@@ -15,7 +15,7 @@ return [
     'enablePrettyUrl' => true,
     'showScriptName' => false,
     'enableStrictParsing' => false,
-    'languages' => ['ru', 'uz', 'en'],
+//    'languages' => ['ru', 'uz', 'en'],
     'enableLanguageDetection' => false,
     'enableDefaultLanguageUrlCode' => true,
     'ignoreLanguageUrlPatterns' => [

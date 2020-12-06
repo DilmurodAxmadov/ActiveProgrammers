@@ -1,83 +1,70 @@
-<?php
-
-use abdualiym\block\entities\Blocks;
-use frontend\widgets\MenuWidget;
-
-(Yii::$app->getModule('block'))->init();
-$phone = (Blocks::findOne(['slug' => 'phone']))->getModelByType()->get();
-$phoneCleared = preg_replace("/[^\d]/u", "", (string)$phone);
-$email = (Blocks::findOne(['slug' => 'email']))->getModelByType()->get();
-?>
-<div id="top-bar">
-    <div class="container clearfix">
-        <div class="col_half nobottommargin">
-            <div id="top-social">
-                <ul>
-                    <li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-telegram-plane"></i></span><span class="ts-text">Telegram</span></a></li>
-                    <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
-                    <li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span></a></li>
-                    <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-                    <li><a href="tel:+<?= $phoneCleared ?>" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span
-                                    class="ts-text"><?= $phone ?></span></a></li>
-                    <li><a href="mailto:<?= $email ?>" class="si-email3"><span class="ts-icon"><i class="icon-email3"></i></span><span class="ts-text"><?= $email ?></span></a></li>
-                </ul>
+<!-- header start -->
+<header class="header1">
+    <nav class="navbar nav-solid mb-0">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu"> <span></span>  <span></span>  <span></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/logo/01.png" alt="logo">
+                </a>
             </div>
-        </div>
-
-        <div class="col_half fright col_last nobottommargin">
-            <div class="top-links">
-                <ul>
-                    <li><a href="https://pm.gov.uz/uz"><i class="ts-icon icon-reply"></i> Виртуальная приемная</a></li>
-                    <li><a href="#"><i class="ts-icon icon-glasses"></i> Специальные возможности</a></li>
-                    <li><a href="#">Русский</a>
-                        <div class="top-link-section text-right font-weight-bold">
-                            <h5><a href="/ru">Русский</a></h5>
-                            <h5><a href="/uz">O`zbek tili</a></h5>
-                            <h5><a href="/en">English</a></h5>
-                        </div>
+            <div class="collapse navbar-collapse" id="main-menu">
+                <form class="navbar-left">
+                    <input type="text" class="form-control" placeholder="Search">
+                </form>
+                <ul class="nav navbar-nav f1 mainMenu text-capitalize">
+                    <li class="active"> <a href="index.html">Home</a>
+                        <ul class="sub-menu">
+                            <li class="active"><a href="index.html">home 1</a>
+                            </li>
+                            <li><a href="index-2.html">home 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">about</a>
+                    </li>
+                    <li> <a href="projects.html">projects</a>
+                        <ul class="sub-menu">
+                            <li><a href="projects.html">01 projects</a>
+                            </li>
+                            <li><a href="projects_2.html">02 projects</a>
+                            </li>
+                            <li><a href="project-single.html">project detail</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="gallery.html">gallery</a>
+                    </li>
+                    <li> <a href="news.html">news</a>
+                        <ul class="sub-menu">
+                            <li><a href="single-news.html">single news</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html">contact</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav social-nav navbar-right">
+                    <li>
+                        <a href="#"> <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-youtube-play"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
-</div>
-
-<header id="header" class="sticky-style-2">
-    <div class="header-middle-container">
-        <div class="container clearfix">
-            <div id="logo">
-                <a href="/" class="standard-logo" data-dark-logo="<?= (Blocks::findOne(['slug' => 'logo']))->getModelByType()->get() ?>"><img
-                            src="<?= (Blocks::findOne(['slug' => 'logo']))->getModelByType()->get() ?>" alt="CRRT Logo"></a>
-                <a href="/" class="retina-logo" data-dark-logo="<?= (Blocks::findOne(['slug' => 'logo']))->getModelByType()->get() ?>"><img
-                            src="<?= (Blocks::findOne(['slug' => 'logo']))->getModelByType()->get() ?>" alt="CRRT Logo"></a>
-            </div>
-
-            <ul class="header-extras">
-                <li><i class="i-plain icon-call nomargin"></i>
-                    <div class="he-text"><?= Yii::t('app', 'Phone') ?><span><?= $phone ?></span></div>
-                </li>
-                <li><i class="i-plain icon-envelope21 nomargin"></i>
-                    <div class="he-text"><?= Yii::t('app', 'Email') ?><span><?= $email ?></span></div>
-                </li>
-                <li><i class="i-plain icon-clock1 nomargin"></i>
-                    <div class="he-text"><?= Yii::t('app', 'Schedule') ?><span><?= (Blocks::findOne(['slug' => 'schedule']))->getModelByType()->get() ?></span></div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="header-wrap">
-        <nav id="primary-menu" class="style-2">
-            <div class="container clearfix">
-                <?= MenuWidget::widget() ?>
-
-                <div id="top-search">
-                    <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-                    <form action="#" method="get">
-                        <input type="text" name="q" class="form-control" value="" placeholder="<?= Yii::t('app', 'Search') ?>...">
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </div>
+    </nav>
 </header>
+<!-- header end -->

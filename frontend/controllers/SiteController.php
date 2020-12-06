@@ -34,11 +34,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $category = ArticleCategories::findOne(['slug' => 'news']);
-
-        return $this->render('index', [
-            'news' => Articles::find()->where(['category_id' => $category->id])->orderBy('date DESC')->limit(3)->all(),
-        ]);
+        return $this->render('index');
     }
 
     /**

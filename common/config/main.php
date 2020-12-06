@@ -55,18 +55,18 @@ return [
 //            'siteKeyV3' => '',
 //            'secretV3' => '',
         ],
-        'i18n' => [
-            'translations' => [
-                'app*' => [
-                    'class' => PhpMessageSource::class,
-                    'basePath' => '@common/messages',
-                    'fileMap' => [
-                        'app' => 'app.php',
-                        'app/error' => 'error.php',
-                    ],
-                ],
-            ],
-        ],
+//        'i18n' => [
+//            'translations' => [
+//                'app*' => [
+//                    'class' => PhpMessageSource::class,
+//                    'basePath' => '@common/messages',
+//                    'fileMap' => [
+//                        'app' => 'app.php',
+//                        'app/error' => 'error.php',
+//                    ],
+//                ],
+//            ],
+//        ],
     ],
     'modules' => [
         'cms' => [ // don`t change module key
