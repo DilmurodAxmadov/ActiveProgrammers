@@ -1,0 +1,69 @@
+version: '3.7'
+
+services:
+
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: tree-nginx
+    restart: unless-stopped
+    working_dir: /app
+    ports:
+      - 20085:85 # frontend
+      - 20086:86 # backend
+    volumes:
+      - ./:/app
+      - ./docker/nginx:/etc/nginx/conf.d:cached
+    links:
+      - php-fpm
+    depends_on:
+      - php-fpm
+      - db
+    networks:
+      - tree
+
+  php-fpm:
+    build: docker/php-fpm
+    restart: unless-stopped
+    container_name: tree-php
+    working_dir: /app
+    ports:
+      - 9001:9001
+    volumes:
+      - ./:/app:cached
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - tree
+
+  db:
+    #    image: postgres:12.2-alpine
+    image: mysql:5.7
+    restart: unless-stopped
+    ports:
+      #      - 5432:5432
+      - 3306:3306
+    volumes:
+      #      - ./docker/storage/psql:/var/lib/postgresql/data:cached
+      - ./docker/storage/mysql:/var/lib/mysql:cached
+    environment:
+      #      POSTGRES_USER: tree
+      #      POSTGRES_PASSWORD: tree
+      #      POSTGRES_DB: tree
+      MYSQL_DATABASE: tree
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
+    networks:
+      - tree
+
+
+networks:
+  tree:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.220.0/28
